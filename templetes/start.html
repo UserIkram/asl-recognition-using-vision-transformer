@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignBridge – Live Detection</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body class="start">
+    <div class="container">
+        <h2>Live Detection</h2>
+        <div class="video-container">
+            <img src="/video_feed" id="video" />
+        </div>
+        <div class="prediction">
+            <h2>Predicted Letter</h2>
+            <div class="predicted-letter" id="predicted-letter">Nill</div> <!-- placeholder -->
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+function updatePrediction() {
+    fetch('/get_prediction')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("predicted-letter").innerText = data;
+        });
+}
+
+// Check prediction every 500ms
+setInterval(updatePrediction, 500);
+</script>
